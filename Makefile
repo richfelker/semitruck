@@ -16,6 +16,8 @@ STL_NAMES = \
 
 STLS = $(STL_NAMES:%=stl/%)
 
+RELEASE_FILES = semitruck.zip
+
 OPENSCAD = openscad --export-format binstl
 
 -include config.mak
@@ -23,8 +25,10 @@ OPENSCAD = openscad --export-format binstl
 
 all: $(STLS)
 
+release: $(RELEASE_FILES)
+
 clean:
-	rm -rf stl
+	rm -rf stl $(RELEASE_FILES)
 
 $(STLS): stl
 
@@ -45,3 +49,6 @@ stl/ujoint_%.stl: scad/ujoint.scad
 
 stl/pulley_%T.stl: scad/pulley.scad
 	$(OPENSCAD) -Dnteeth='$(patsubst stl/pulley_%T.stl,%,$@)' -o $@ $<
+
+semitruck.zip: $(STLS)
+	zip -r $@ README.md scad stl
