@@ -119,9 +119,15 @@ module new_arm(s=12,end=false) {
 		translate([0,-s/2-(s+6)/2-1,0])
 		if (!end) {
 			rotate([90,0,0])
-			translate([0,0,100/2])
-			rotate(45)
-			cube([6,6,100],center=true);
+			rotate(45) {
+				translate([0,0,100/2])
+				cube([6,6,100],center=true);
+				translate([0,0,100/2+10.4])
+				hull() {
+					cube([6,6,100],center=true);
+					cube([8,8,98],center=true);
+				}
+			}
 
 			for (a=[0:90:270])
 			rotate([0,a,0])
