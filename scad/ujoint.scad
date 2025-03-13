@@ -156,14 +156,14 @@ module new_arm_outer(s=12,extra=0) {
 		hull() {
 			for (z=[-3,3],y=[0,s])
 			translate([0,y,z])
-			scale([1,1,(s+6)/(s+6+2)])
+			scale([1,1,(s+1)/(s+6)])
 			sphere(d=s+6);
 		}
 		rotate([0,90,0])
 		linear_extrude(height=4*s,center=true,convexity=3)
 		hull() {
 			circle(d=6);
-			for (a=[-35,35])
+			for (a=[-30,30])
 			rotate(a)
 			translate([0,-2*s])
 			circle(d=6);
@@ -217,7 +217,7 @@ module new_arm(s=12,end=false) {
 			sphere(d=s+2);
 		}
 		for (i=[0,1]) mirror([0,0,i])
-		translate([0,0,200/2+s/2+3])
+		translate([0,0,200/2+s/2+1])
 		cube(200,center=true);
 
 		translate([0,-s/2-(s+6)/2-1,0])
