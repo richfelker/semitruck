@@ -7,7 +7,6 @@ bt=2; // 0.5
 part="arm"; // [ "arm", "end", "center" ]
 preview=false;
 
-
 module center_block(s=s) {
 difference() {
 	cube(s,center=true);
@@ -45,109 +44,6 @@ difference() {
 	}
 	}
 }
-}
-
-*translate([8,0,1.25])
-rotate([0,90,0])
-cylinder(d=6,h=2);
-
-//rotate([45,0,0])
-*center_block();
-
-
-module u_arm(s=12) {
-
-	// pegs
-	for (i=[0,1]) mirror([i,0,0])
-	difference() {
-		union() {
-			translate([s/2-2,0,0])
-			rotate([0,90,0])
-			cylinder(d1=2,d2=3,h=0.5);
-
-			translate([s/2-1.5,0,0])
-			rotate([0,90,0])
-			cylinder(d=3,h=2);
-
-			translate([s/2+0.3,0,0])
-			rotate([0,90,0])
-			cylinder(d1=4,d2=5,h=0.7);
-
-			translate([s/2+1,0,0])
-			rotate([0,90,0])
-			cylinder(d=6,h=2);
-		}
-		rotate([90,0,0])
-		linear_extrude(height=20,center=true)
-		polygon([[0,-3],[s/2+0.3,-1.5],[s/2-2,-0.5]]);
-	}
-
-	// arms
-linear_extrude(height=6,convexity=3,center=true)
-difference() {
-	hull() {
-		translate([0,-2]) square([s+6,4],center=true);
-		translate([0,-s/2]) difference() {
-			circle(d=s+6);
-			translate([0,(s+6)/2]) square(s+6,center=true);
-		}
-	}
-	hull() {
-		translate([0,10]) square([s+2,3],center=true);
-		translate([0,-s/2]) circle(d=s+2);
-	}
-}
-
-	// f3d coupling
-	*translate([0,-s/2-(s+6)/2+2,0])
-	rotate([90,0,0]) {
-		//cylinder(d=5,h=10);
-		linear_extrude(height=13)
-		difference() {
-			circle(d=5);
-			translate([0,4/2]) translate([0,5/2]) square(5,center=true);
-			translate([0,-2.2]) translate([0,-5/2]) square(5,center=true);
-		}
-		//translate([0,-3+0.6/2]) square([3,0.6],center=true);
-
-		// locking lip
-		translate([0,0,5])
-		linear_extrude(height=1)
-		difference() {
-			circle(d=7);
-			translate([0,6/2]) translate([0,5/2]) square(5,center=true);
-			translate([0,-6/2]) translate([0,-5/2]) square(5,center=true);
-		}
-		//supports
-		translate([0,-6/2,2])
-		translate([0,0.6/2,3/2])
-		cube([3,0.6,2.5],center=true);
-		translate([0,-6/2,6.4])
-		translate([0,0.6/2,7/2])
-		cube([3,0.6,7],center=true);
-	}
-
-	// square shaft coupling
-	translate([0,-s/2-(s+6)/2+2,0])
-	//translate([0,-10/2,0])
-	//cube([10,10,10],center=true);
-	rotate([90,0,0])
-	difference() {
-		intersection() {
-			cylinder(d=11,h=20);
-			cube([20,6,100],center=true);
-		}
-		translate([0,0,50/2+3])
-		rotate(45)
-		cube([6,6,50],center=true);
-		translate([0,0,10])
-		scale([1,1,3])
-		rotate_extrude(convexity=2)
-		translate([11/2,0])
-		//rotate(45)
-		square(1,center=true);
-	}
-
 }
 
 module new_arm_outer(s=12,extra=0) {
@@ -274,7 +170,6 @@ rotate([55,0,0])
 {
 rotate([-90,0,0])
 center_block();
-*rotate([0,90,180]) u_arm();
 rotate([0,90,180]) new_arm();
 }
 
