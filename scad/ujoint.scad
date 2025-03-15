@@ -113,7 +113,7 @@ module new_arm(s=12,end=false) {
 			sphere(d=s+2);
 		}
 		for (i=[0,1]) mirror([0,0,i])
-		translate([0,0,200/2+s/2+1])
+		translate([0,0,200/2+s/2+2])
 		cube(200,center=true);
 
 		translate([0,-s/2-(s+6)/2-1,0])
@@ -145,7 +145,7 @@ module new_arm(s=12,end=false) {
 			translate([0,-100/2,100/2])
 			cube([1.8,100,100],center=true);
 
-			translate([0,-2.5,5.5])
+			translate([0,-2.5,4.6])
 			rotate([0,90,0]) {
 				cylinder(d=2.9,h=100,center=true);
 				translate([0,0,1.8/2+1.2])
