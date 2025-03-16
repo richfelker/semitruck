@@ -10,6 +10,7 @@ STL_NAMES = \
 	slider_insert.stl \
 	slider_pulley.stl \
 	ujoint_arm.stl \
+	ujoint_big.stl \
 	ujoint_end.stl \
 	ujoint_center.stl \
 	#

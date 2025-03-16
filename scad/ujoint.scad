@@ -4,7 +4,7 @@ bod=6;
 bid=3;
 bt=2; // 0.5
 
-part="arm"; // [ "arm", "end", "center" ]
+part="arm"; // [ "arm", "big", "end", "center" ]
 preview=false;
 
 module center_block(s=s) {
@@ -101,9 +101,9 @@ module pegs(s=12) {
 	}
 }
 
-module new_arm(s=12,end=false) {
+module new_arm(s=12,end=false,sw=6) {
 	difference() {
-		new_arm_outer(s=s,extra=(end?2:0));
+		new_arm_outer(s=s,extra=(end||sw>6?2:0));
 		translate([0,-s/2,0])
 		hull() {
 			sphere(d=s+2);
@@ -121,11 +121,11 @@ module new_arm(s=12,end=false) {
 			rotate([90,0,0])
 			rotate(45) {
 				translate([0,0,100/2])
-				cube([6,6,100],center=true);
+				cube([sw,sw,100],center=true);
 				translate([0,0,100/2+10.4])
 				hull() {
-					cube([6,6,100],center=true);
-					cube([8,8,98],center=true);
+					cube([sw,sw,100],center=true);
+					cube([sw+2,sw+2,98],center=true);
 				}
 			}
 
@@ -164,6 +164,8 @@ module hexagon(w) polygon([for (i=[1:6]) w/sqrt(3) * [cos(60*i), sin(60*i)]]);
 
 if (part=="arm")
 new_arm(end=false);
+if (part=="big")
+new_arm(end=false,sw=10);
 else if (part=="end")
 new_arm(end=true);
 else if (part=="center")
