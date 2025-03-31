@@ -153,15 +153,6 @@ module filament_cuts() {
 		cube([2*hr,4*fr,2*hr],center=true);
 	}
 
-	*intersection() {
-		translate([hr+fr-bite+ofs,0,0])
-		rotate([90,0,0])
-		translate([0,0,0])
-		cylinder(r=wwr+0.2,h=9);
-
-		cube([2*hr,20,hr*3/4],center=true);
-	}
-
 	cylinder(d=2.1,h=4*hr,center=true);
 }
 
@@ -367,7 +358,7 @@ module filament_path_slot() {
 
 module skylight_hole() {
 	translate([hr+fr-bite+ofs+1,-3,wl/2+6+2])
-	cube([wwr+2,9,10],center=true);
+	cube([wwod/2+2,9,10],center=true);
 }
 
 module housing()
@@ -560,10 +551,10 @@ sa=-15;
 
 // heatsink and fan
 *%rotate(sa) {
-translate([0,0,-25/2-wwr-1])
+translate([0,0,-25/2-wwod/2-1])
 cube([13,25,25],center=true);
 
-translate([13/2+10/2,0,-25/2-wwr-1])
+translate([13/2+10/2,0,-25/2-wwod/2-1])
 cube([10,25,25],center=true);
 }
 
