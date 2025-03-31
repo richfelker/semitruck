@@ -19,8 +19,8 @@ ibd=6; // 0.1
 // Idler bearing angle
 iba=26; // 0.1
 
-// Worm pseudo-radius (misusing worm wheel OD as pitch diameter)
-wr=3.8; // 0.01
+// Worm pitch radius
+wr=4.3; // 0.01
 
 // Worm threaded(?) length
 wl=10.5; // 0.1
@@ -32,7 +32,7 @@ fr=fd/2;
 hor=hod/2;
 hr=hd/2;
 br=ibd/2;
-wwr=wwod/2;
+wwr=wwpd/2;
 
 //ofs=-0.3;
 ofs = -0.4 + bite;
