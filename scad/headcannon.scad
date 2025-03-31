@@ -25,9 +25,9 @@ part="assembly"; // [ "assembly", "bottom", "top", "insert", "insert_cover" ]
 
 module nut_cuts()
 translate([hr+fr-bite+ofs,0,0]) {
-	*for (a=[-ba/2,ba/2])
+	for (a=[-ba/2,ba/2])
 	rotate([0,a,0])
-	translate([-hr-2*fr-br+2*bite,5,0])
+	translate([-hr-2*fr-br+2*bite,4,0])
 	rotate([-90,0,0]) {
 		linear_extrude(height=10)
 		rotate(-a)
@@ -76,7 +76,7 @@ translate([hr+fr-bite+ofs,0,0]) {
 	rotate([0,a,0])
 	translate([-hr-2*fr-br+2*bite,0,0])
 	rotate([90,0,0]) {
-		cylinder(d=3,h=8,center=true);
+		cylinder(d=3,h=100,center=true);
 	}
 }
 
@@ -87,27 +87,32 @@ translate([hr+fr-bite+ofs,0,0]) {
 		translate([0,0,1.5])
 		cylinder(r=wwr+0.5,h=6+0.5);
 	}
+}
 
+module idler_cuts(tops=true)
+translate([hr+fr-bite+ofs,0,0]) {
 	for (a=[-ba/2,ba/2])
 	rotate([0,a,0])
 	translate([-hr-2*fr-br+2*bite,0,0])
 	rotate([90,0,0]) {
-		translate([0,0,-1-0.3])
+		translate([0,0,-1-0.4])
 		difference() {
 			hull() for (x=[0,-0.5])
 			translate([x,0,0])
-			cylinder(r=br+0.3,h=2.0+0.6);
-			cylinder(d=4.5,h=100,center=true);
+			cylinder(r=br+0.3,h=2.0+0.7);
+			cylinder(d1=5.5,d2=4.5,h=1,center=true);
 		}
 		translate([0,0,0.3/2])
 		cylinder(r=br+0.3,h=2.0+0.3,center=true);
+		if (tops)
 		translate([0,0,(2.0+0.6)/2])
 		cylinder(r1=br+0.3,r2=0,h=1*(br+0.5));
 	}
-	translate([-hr-2*fr-br+2*bite,0,0])
+	// old fix for tiny unprintable wall?
+	*translate([-hr-2*fr-br+2*bite,0,0])
 	rotate([90,0,0])
-	translate([0,0,-1-0.3])
-	cylinder(r=0.8,h=2.0+0.6);
+	translate([0,0,-1-0.4])
+	cylinder(r=0.8,h=2.0+0.7);
 }
 
 module filament_cuts() {
@@ -383,7 +388,8 @@ if (part == "assembly") {
 	rotate([-90,0,0])
 	filament_path_insert();
 } else if (part == "insert_cover") {
-	rotate([90,0,0])
+	*%filament_path_insert();
+	rotate([0,-90,0])
 	filament_path_insert_cover();
 }
 
@@ -414,28 +420,31 @@ difference() {
 	filament_path_insert_body();
 	bearing_holders();
 	gear_cuts();
+	idler_cuts();
 	filament_cuts();
 	
 }
 
+module idler_holder_profile() {
+	translate([-br-1,0])
+	offset(r=3) offset(r=-3)
+	square([2*br+2,4*br+2],center=true);
+}
+
 module filament_path_insert_cover_body()
 {
-	*translate([0,-3,0])
-	rotate([90,0,0])
-	linear_extrude(height=0.6,convexity=3)
-	translate([-br-1.5,0])
-	offset(r=3) offset(r=-3)
-	square([2*br+0.1,4*br+1],center=true);
-
-	translate([hr+fr-bite+ofs,0,0]) {
+	*translate([hr+fr-bite+ofs,0,0]) {
+	// old bearing spacers
 	for (a=[-ba/2,ba/2])
 	rotate([0,a,0])
 	translate([-hr-2*fr-br+2*bite,0,0])
 	rotate([90,0,0]) {
 		translate([0,0,1])
 		cylinder(d=4.5,h=2);
-	}
-	hull()
+	}	
+
+	// old top plate
+	*hull()
 	for (a=[-ba/2,ba/2])
 	rotate([0,a,0])
 	translate([-hr-2*fr-br+2*bite,0,0])
@@ -444,17 +453,72 @@ module filament_path_insert_cover_body()
 		cylinder(r=br,h=0.6);
 	}
 	}
+
+	// main body
+	rotate([-90,0,0]) difference() {
+		translate([0,0,4])
+		mirror([0,0,1])
+		linear_extrude(height=9.6,convexity=3)
+		translate([-br-1,0])
+		//offset(r=3) offset(r=-3)
+		hull() {
+			translate([-1/2,0])
+			square([2*br-1,4*br+3],center=true);
+			translate([-1/2,0])
+			square([2*br+3,4*br-1],center=true);
+		}
+
+		// inlay for main insert
+		translate([0,0,-0.1])
+		linear_extrude(height=3.15,convexity=3)
+		translate([-br-1,0])
+		offset(r=3.2) offset(r=-3)
+		hull() for (x=[0,10]) translate([x,0])
+		square([2*br+2,4*br+2],center=true);
+
+		// screw head holes
+		rotate([-90,0,0])
+		translate([hr+fr-bite+ofs,0,0])
+		for (a=[-ba/2,ba/2])
+		rotate([0,a,0])
+		translate([-hr-2*fr-br+2*bite,0,0])
+		rotate([-90,0,0]) {
+			translate([0,0,3])
+			//cylinder(d=5.6,h=100);
+			linear_extrude(height=100,convexity=3)
+			rotate(-a)
+			hexagon(5.5);
+		}	
+	}
+
+	*rotate([-90,0,0])
+	translate([0,0,-3])
+	linear_extrude(height=3,convexity=3)
+	translate([-br-1,0])
+	offset(r=3) offset(r=-3)
+	square([2*br+2,4*br+2],center=true);
 }
 
 module filament_path_insert_cover()
 difference() {
 	filament_path_insert_cover_body();
-	mirror([0,1,0])
+	*nut_cuts();
 	bearing_holders();
-	mirror([0,1,0])
 	gear_cuts();
-	translate([100/2-3,100/2-3,0])
+	mirror([0,1,0])
+	idler_cuts();
+	*translate([100/2-3,100/2-3,0])
 	cube(100,center=true);
+	translate([-1/2,0,0])
+	cube([5,6.1,100],center=true);
+	translate([-1/2,-5,0])
+	cube([5,6.1,100],center=true);
+
+	// get rid of unprintable stub
+	translate([-2,0,0])
+	rotate([-90,0,0])
+	translate([0,0,-1.4])
+	cylinder(d=1,h=2+1.4);
 }
 
 

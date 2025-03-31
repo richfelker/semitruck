@@ -137,7 +137,11 @@ module new_arm(s=12,end=false,sw=6) {
 			cube(100,center=true);
 		} else {
 			rotate([90,0,0])
-			cylinder(d=5.05,h=7);
+			//cylinder(d=5.05,h=70,center=true);
+			linear_extrude(height=70,center=true)
+			rotate(180)
+			D(5.05);
+			//cylinder(d=5.05,h=7);
 			translate([0,-6,0])
 			translate([0,-100/2,0])
 			cube(100,center=true);
@@ -158,6 +162,13 @@ module new_arm(s=12,end=false,sw=6) {
 		}
 	}
 	pegs(s);
+}
+
+module D(d=5,f=.5) {
+	intersection() {
+		circle(d=d);
+		translate([0,-f]) square([10,d],center=true);
+	}
 }
 
 module hexagon(w) polygon([for (i=[1:6]) w/sqrt(3) * [cos(60*i), sin(60*i)]]);
