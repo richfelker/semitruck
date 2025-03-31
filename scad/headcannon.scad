@@ -1,12 +1,38 @@
-fr=1.75/2;
-hor=19.48/2;
-hr=18.85/2;
-bite=0.17;
-br=6/2;
-ba=26;
-wwr=20.5/2;
-wr=3.8;
-wl=10.5;
+// Filament diameter
+fd=1.75; // 0.01
+
+// Hob outer diameter
+hod=19.48; // 0.01
+
+// Hob pitch diamete
+hd=18.85; // 0.01
+
+// Worm wheel outer diameter
+wwod=20.5; // 0.01
+
+// Worm wheel pitch diameter
+wwpd=19.5; // 0.5
+
+// Idler bearing diameter
+ibd=6; // 0.1
+
+// Idler bearing angle
+iba=26; // 0.1
+
+// Worm pseudo-radius (misusing worm wheel OD as pitch diameter)
+wr=3.8; // 0.01
+
+// Worm threaded(?) length
+wl=10.5; // 0.1
+
+// Depth of filament hob cut into filament
+bite=0.17; // 0.01
+
+fr=fd/2;
+hor=hod/2;
+hr=hd/2;
+br=ibd/2;
+wwr=wwod/2;
 
 //ofs=-0.3;
 ofs = -0.4 + bite;
@@ -25,7 +51,7 @@ part="assembly"; // [ "assembly", "bottom", "top", "insert", "insert_cover" ]
 
 module nut_cuts()
 translate([hr+fr-bite+ofs,0,0]) {
-	for (a=[-ba/2,ba/2])
+	for (a=[-iba/2,iba/2])
 	rotate([0,a,0])
 	translate([-hr-2*fr-br+2*bite,4,0])
 	rotate([-90,0,0]) {
@@ -72,7 +98,7 @@ translate([hr+fr-bite+ofs,0,0]) {
 		cylinder(d=0.8,h=wl+4+5+4);
 	}
 	
-	for (a=[-ba/2,ba/2])
+	for (a=[-iba/2,iba/2])
 	rotate([0,a,0])
 	translate([-hr-2*fr-br+2*bite,0,0])
 	rotate([90,0,0]) {
@@ -85,13 +111,13 @@ translate([hr+fr-bite+ofs,0,0]) {
 	rotate([90,0,0]) {
 		cylinder(r=hor+0.5,h=3+0.5,center=true);
 		translate([0,0,1.5])
-		cylinder(r=wwr+0.5,h=6+0.5);
+		cylinder(d=wwod+1,h=6+0.5);
 	}
 }
 
 module idler_cuts(tops=true)
 translate([hr+fr-bite+ofs,0,0]) {
-	for (a=[-ba/2,ba/2])
+	for (a=[-iba/2,iba/2])
 	rotate([0,a,0])
 	translate([-hr-2*fr-br+2*bite,0,0])
 	rotate([90,0,0]) {
@@ -435,7 +461,7 @@ module filament_path_insert_cover_body()
 {
 	*translate([hr+fr-bite+ofs,0,0]) {
 	// old bearing spacers
-	for (a=[-ba/2,ba/2])
+	for (a=[-iba/2,iba/2])
 	rotate([0,a,0])
 	translate([-hr-2*fr-br+2*bite,0,0])
 	rotate([90,0,0]) {
@@ -445,7 +471,7 @@ module filament_path_insert_cover_body()
 
 	// old top plate
 	*hull()
-	for (a=[-ba/2,ba/2])
+	for (a=[-iba/2,iba/2])
 	rotate([0,a,0])
 	translate([-hr-2*fr-br+2*bite,0,0])
 	rotate([90,0,0]) {
@@ -479,7 +505,7 @@ module filament_path_insert_cover_body()
 		// screw head holes
 		rotate([-90,0,0])
 		translate([hr+fr-bite+ofs,0,0])
-		for (a=[-ba/2,ba/2])
+		for (a=[-iba/2,iba/2])
 		rotate([0,a,0])
 		translate([-hr-2*fr-br+2*bite,0,0])
 		rotate([-90,0,0]) {
@@ -553,7 +579,7 @@ cube([10,25,25],center=true);
 	rotate([90,0,0])
 	cylinder(r=hor,h=0.5,center=true);
 
-	for (a=[-ba/2,ba/2])
+	for (a=[-iba/2,iba/2])
 	rotate([0,a,0])
 	translate([-hr-2*fr-br+2*bite,0,0])
 	rotate([90,0,0])
