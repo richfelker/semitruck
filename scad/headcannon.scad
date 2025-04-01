@@ -86,7 +86,7 @@ translate([hr+fr+ofs,0,0]) {
 
 	// worm bearings
 	wbc = 0.12;
-	translate([14.05,-3/2-1-5/2,-wl/2-4]) {
+	translate([wwr+wr,-3/2-1-5/2,-wl/2-4]) {
 		cylinder(d=10+2*wbc,h=4);
 		translate([0,0,1.2])
 		cylinder(d=11+2*wbc,h=2.8);
