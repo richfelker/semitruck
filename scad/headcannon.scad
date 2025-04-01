@@ -20,7 +20,7 @@ ibd=6; // 0.1
 iba=26; // 0.1
 
 // Idler preload
-ipl=0.17;
+ipl=0.07; // 0.01
 
 // Worm pitch radius
 wr=4.3; // 0.01
@@ -29,7 +29,7 @@ wr=4.3; // 0.01
 wl=10.5; // 0.1
 
 // Depth of filament hob cut into filament
-bite=0.17; // 0.01
+bite=0.15; // 0.01
 
 fr=fd/2;
 hor=hod/2;
@@ -38,7 +38,8 @@ br=ibd/2;
 wwr=wwpd/2;
 
 // Offset of filament center line to account for idler curvature
-ofs = -0.23;
+//ofs = -0.23;
+ofs = -(hr+2*fr+br)*(1-cos(iba/2));
 
 part="assembly"; // [ "assembly", "bottom", "top", "insert", "insert_cover" ]
 
