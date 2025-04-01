@@ -19,6 +19,9 @@ ibd=6; // 0.1
 // Idler bearing angle
 iba=26; // 0.1
 
+// Idler preload
+ipl=0.17;
+
 // Worm pitch radius
 wr=4.3; // 0.01
 
@@ -30,12 +33,12 @@ bite=0.17; // 0.01
 
 fr=fd/2;
 hor=hod/2;
-hr=hd/2;
+hr=hd/2-bite; // hob (pitch) radius incorporates bite
 br=ibd/2;
 wwr=wwpd/2;
 
-//ofs=-0.3;
-ofs = -0.4 + bite;
+// Offset of filament center line to account for idler curvature
+ofs = -0.23;
 
 part="assembly"; // [ "assembly", "bottom", "top", "insert", "insert_cover" ]
 
@@ -50,10 +53,10 @@ part="assembly"; // [ "assembly", "bottom", "top", "insert", "insert_cover" ]
 //ofs=-0.7;
 
 module nut_cuts()
-translate([hr+fr-bite+ofs,0,0]) {
+translate([hr+fr+ofs,0,0]) {
 	for (a=[-iba/2,iba/2])
 	rotate([0,a,0])
-	translate([-hr-2*fr-br+2*bite,4,0])
+	translate([-hr-2*fr-br+ipl,4,0])
 	rotate([-90,0,0]) {
 		linear_extrude(height=10)
 		rotate(-a)
@@ -62,7 +65,7 @@ translate([hr+fr-bite+ofs,0,0]) {
 }
 
 module bearing_holders()
-translate([hr+fr-bite+ofs,0,0]) {
+translate([hr+fr+ofs,0,0]) {
 	// hob & worm wheel bearing
 	wwbc = 0.05;
 	rotate([90,0,0]) {
@@ -100,14 +103,14 @@ translate([hr+fr-bite+ofs,0,0]) {
 	
 	for (a=[-iba/2,iba/2])
 	rotate([0,a,0])
-	translate([-hr-2*fr-br+2*bite,0,0])
+	translate([-hr-2*fr-br+ipl,0,0])
 	rotate([90,0,0]) {
 		cylinder(d=3,h=100,center=true);
 	}
 }
 
 module gear_cuts()
-translate([hr+fr-bite+ofs,0,0]) {
+translate([hr+fr+ofs,0,0]) {
 	rotate([90,0,0]) {
 		cylinder(r=hor+0.5,h=3+0.5,center=true);
 		translate([0,0,1.5])
@@ -116,10 +119,10 @@ translate([hr+fr-bite+ofs,0,0]) {
 }
 
 module idler_cuts(tops=true)
-translate([hr+fr-bite+ofs,0,0]) {
+translate([hr+fr+ofs,0,0]) {
 	for (a=[-iba/2,iba/2])
 	rotate([0,a,0])
-	translate([-hr-2*fr-br+2*bite,0,0])
+	translate([-hr-2*fr-br+ipl,0,0])
 	rotate([90,0,0]) {
 		translate([0,0,-1-0.4])
 		difference() {
@@ -135,7 +138,7 @@ translate([hr+fr-bite+ofs,0,0]) {
 		cylinder(r1=br+0.3,r2=0,h=1*(br+0.5));
 	}
 	// old fix for tiny unprintable wall?
-	*translate([-hr-2*fr-br+2*bite,0,0])
+	*translate([-hr-2*fr-br+ipl,0,0])
 	rotate([90,0,0])
 	translate([0,0,-1-0.4])
 	cylinder(r=0.8,h=2.0+0.7);
@@ -143,10 +146,10 @@ translate([hr+fr-bite+ofs,0,0]) {
 
 module filament_cuts() {
 	intersection() {
-		translate([hr+fr-2*bite+ofs,0,0])
+		translate([hr+fr-ipl+ofs,0,0])
 		rotate([90,0,0])
 		rotate_extrude(convexity=3)
-		translate([hr+fr-bite,0])
+		translate([hr+fr,0])
 		circle(d=2.1);
 
 		translate([-hr,0,0])
@@ -174,14 +177,14 @@ union()
 		else
 		circle(d=10);
 
-		translate([hr+fr-bite+ofs-11/2+5/2,-3])
+		translate([hr+fr+ofs-11/2+5/2,-3])
 		square([5,19],center=true);
 	}
 	
-	translate([hr+fr-bite+ofs,-3])
+	translate([hr+fr+ofs,-3])
 	square([11,19],center=true);
 
-	translate([hr+fr-bite+ofs,0])
+	translate([hr+fr+ofs,0])
 	for (p=[[3,-19/2-3-.3],[-3,19/2-3+.3]])
 	translate(p)
 	if (top)
@@ -191,11 +194,11 @@ union()
 	hexagon(7);
 
 	hull() {
-		translate([hr+fr-bite+ofs+5.5+3/2,-3])
+		translate([hr+fr+ofs+5.5+3/2,-3])
 		square([3,19],center=true);
-		translate([hr+fr-bite+ofs+wwr+wr,-3/2-1-5/2])
+		translate([hr+fr+ofs+wwr+wr,-3/2-1-5/2])
 		circle(d=15);
-		translate([hr+fr-bite+ofs+wwr+wr,-3/2-1-5/2])
+		translate([hr+fr+ofs+wwr+wr,-3/2-1-5/2])
 		for (a=[12,192]) rotate(a)
 		translate([0,16/2])
 		if (top) circle(d=5);
@@ -219,7 +222,7 @@ module housing_base() {
 	// worm holder sides
 	translate([0,0,-wl/2-6])
 	linear_extrude(height=wl+12+2,convexity=3) {
-		translate([hr+fr-bite+ofs+wwr+wr,-3/2-1-5/2])
+		translate([hr+fr+ofs+wwr+wr,-3/2-1-5/2])
 		difference() {
 		union()
 		for (a=[12,192]) rotate(a)
@@ -236,7 +239,7 @@ module housing_base() {
 	offset(r=1) offset(r=-1)
 	union()
 	{
-		translate([hr+fr-bite+ofs,0]) {
+		translate([hr+fr+ofs,0]) {
 			translate([-5.5,2.5])
 			square([11,4]);
 			translate([-5.5,-2.5-4-6])
@@ -250,16 +253,16 @@ module housing_base() {
 	}
 
 	// worm mockup
-	*%translate([hr+fr-bite+ofs+wwr+wr,-3/2-1-5/2,0])
+	*%translate([hr+fr+ofs+wwr+wr,-3/2-1-5/2,0])
 	cylinder(d=8,h=wl,center=true);
 
 	// top worm holder
-	translate([hr+fr-bite+ofs+wwr+wr,-3/2-1-5/2,wl/2+6+2])
+	translate([hr+fr+ofs+wwr+wr,-3/2-1-5/2,wl/2+6+2])
 	mirror([0,0,1])
 	cylinder(d1=15,d2=13.5,h=1.5);
 
 	//bottom worm holder
-	translate([hr+fr-bite+ofs+wwr+wr,-3/2-1-5/2,-wl/2-6+3])
+	translate([hr+fr+ofs+wwr+wr,-3/2-1-5/2,-wl/2-6+3])
 	cylinder(d1=15,d2=13.5,h=1.5);
 
 	// rev bowden holder
@@ -292,14 +295,14 @@ module mount_holes() {
 module bottom_nut_holes() {
 	translate([0,0,-wl/2-6-1])
 	linear_extrude(height=3.4,convexity=3) {
-		translate([hr+fr-bite+ofs+wwr+wr,-3/2-1-5/2])
+		translate([hr+fr+ofs+wwr+wr,-3/2-1-5/2])
 		for (a=[12,192]) rotate(a)
 		//for (a=[150,330]) rotate(a)
 		translate([0,16/2])
 		rotate(sa)
 		hexagon(5.1);
 
-		translate([hr+fr-bite+ofs,0]) {
+		translate([hr+fr+ofs,0]) {
 			translate([3,-19/2-3-.3])
 			rotate(sa) hexagon(5.1);
 			translate([-3,19/2-3+.3])
@@ -310,7 +313,7 @@ module bottom_nut_holes() {
 	//top
 	translate([0,0,wl/2+6+5-2.2])
 	linear_extrude(height=3,convexity=3) {
-		translate([hr+fr-bite+ofs+wwr+wr,-3/2-1-5/2])
+		translate([hr+fr+ofs+wwr+wr,-3/2-1-5/2])
 		for (a=[12,192]) rotate(a)
 		//for (a=[150,330]) rotate(a)
 		translate([0,16/2])
@@ -318,7 +321,7 @@ module bottom_nut_holes() {
 		hull() for (i=[0,5]) translate([0,i])
 		circle(d=5.2);
 
-		translate([hr+fr-bite+ofs,0]) {
+		translate([hr+fr+ofs,0]) {
 			translate([3,-19/2-3-.3])
 			circle(d=5.2);
 			translate([-3,19/2-3+.3])
@@ -327,14 +330,14 @@ module bottom_nut_holes() {
 	}
 
 
-	translate([hr+fr-bite+ofs,0,0]) {
+	translate([hr+fr+ofs,0,0]) {
 		translate([3,-19/2-3-.3])
 		cylinder(d=2.8,h=100,center=true);
 		translate([-3,19/2-3+.3])
 		cylinder(d=2.8,h=100,center=true);
 	}
 
-	translate([hr+fr-bite+ofs+wwr+wr,-3/2-1-5/2])
+	translate([hr+fr+ofs+wwr+wr,-3/2-1-5/2])
 	for (a=[12,192]) rotate(a)
 	translate([0,16/2])
 	cylinder(d=2.8,h=100,center=true);
@@ -357,7 +360,7 @@ module filament_path_slot() {
 }
 
 module skylight_hole() {
-	translate([hr+fr-bite+ofs+1,-3,wl/2+6+2])
+	translate([hr+fr+ofs+1,-3,wl/2+6+2])
 	cube([wwod/2+2,9,10],center=true);
 }
 
@@ -450,11 +453,11 @@ module idler_holder_profile() {
 
 module filament_path_insert_cover_body()
 {
-	*translate([hr+fr-bite+ofs,0,0]) {
+	*translate([hr+fr+ofs,0,0]) {
 	// old bearing spacers
 	for (a=[-iba/2,iba/2])
 	rotate([0,a,0])
-	translate([-hr-2*fr-br+2*bite,0,0])
+	translate([-hr-2*fr-br+ipl,0,0])
 	rotate([90,0,0]) {
 		translate([0,0,1])
 		cylinder(d=4.5,h=2);
@@ -464,7 +467,7 @@ module filament_path_insert_cover_body()
 	*hull()
 	for (a=[-iba/2,iba/2])
 	rotate([0,a,0])
-	translate([-hr-2*fr-br+2*bite,0,0])
+	translate([-hr-2*fr-br+ipl,0,0])
 	rotate([90,0,0]) {
 		translate([0,0,3])
 		cylinder(r=br,h=0.6);
@@ -495,10 +498,10 @@ module filament_path_insert_cover_body()
 
 		// screw head holes
 		rotate([-90,0,0])
-		translate([hr+fr-bite+ofs,0,0])
+		translate([hr+fr+ofs,0,0])
 		for (a=[-iba/2,iba/2])
 		rotate([0,a,0])
-		translate([-hr-2*fr-br+2*bite,0,0])
+		translate([-hr-2*fr-br+ipl,0,0])
 		rotate([-90,0,0]) {
 			translate([0,0,3])
 			//cylinder(d=5.6,h=100);
@@ -561,7 +564,7 @@ cube([10,25,25],center=true);
 
 
 // bearings
-*%translate([hr+fr-bite+ofs,0,0]) {
+*%translate([hr+fr+ofs,0,0]) {
 	rotate([90,0,0])
 	cylinder(r=hr,h=3,center=true);
 
@@ -572,11 +575,11 @@ cube([10,25,25],center=true);
 
 	for (a=[-iba/2,iba/2])
 	rotate([0,a,0])
-	translate([-hr-2*fr-br+2*bite,0,0])
+	translate([-hr-2*fr-br+ipl,0,0])
 	rotate([90,0,0])
 	cylinder(r=br,h=2.5,center=true);
 
-	*translate([-hr-2*fr-0.3+0*bite,0,0])
+	*translate([-hr-2*fr-0.3,0,0])
 	rotate([90,0,0])
 	cylinder(r=1,h=2.5,center=true);
 }
