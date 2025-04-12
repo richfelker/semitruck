@@ -31,6 +31,10 @@ wl=10.5; // 0.1
 // Depth of filament hob cut into filament
 bite=0.15; // 0.01
 
+// Angle to center entire extruder
+sa=-15; // 0.1
+
+
 fr=fd/2;
 hor=hod/2;
 hr=hd/2-bite; // hob (pitch) radius incorporates bite
@@ -400,6 +404,7 @@ if (part == "assembly") {
 	housing_top();
 	filament_path_insert();
 	filament_path_insert_cover();
+	%mounting_mockup();
 } else if (part == "bottom") {
 	housing_bottom();
 } else if (part == "top") {
@@ -544,21 +549,16 @@ difference() {
 
 
 
-
-sa=-15;
-//sa=0;
-
-
-
 // below are mounting mockups
 
 
 // heatsink and fan
-*%rotate(sa) {
+module mounting_mockup()
+rotate(sa) {
 translate([0,0,-25/2-wwod/2-1])
 cube([13,25,25],center=true);
 
-translate([13/2+10/2,0,-25/2-wwod/2-1])
+translate([13/2+2.5+10/2,0,-25/2-wwod/2-1])
 cube([10,25,25],center=true);
 }
 
