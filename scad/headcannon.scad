@@ -35,10 +35,10 @@ bite=0.15; // 0.01
 sa=-15; // 0.1
 
 // Worm bolt angles
-wba=[12,192];
+wba=[-15];
 
 // Worm wheel bolt positions
-wwbp=[[3,-19/2-3-.3],[-3,19/2-3+.3]];
+wwbp=[[3+3,-19/2-3-.3],[-3,19/2-3+.3]];
 
 fr=fd/2;
 hor=hod/2;
