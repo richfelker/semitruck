@@ -210,7 +210,7 @@ union()
 		translate([hr+fr+ofs+5.5+3/2,-3])
 		square([3,19],center=true);
 		translate([hr+fr+ofs+wwr+wr,-3/2-1-5/2])
-		circle(d=15);
+		circle(d=wbd+5);
 		translate([hr+fr+ofs+wwr+wr,-3/2-1-5/2])
 		for (a=wba) rotate(a)
 		translate([0,wbd/2+3])
@@ -269,11 +269,11 @@ module housing_base() {
 	// top worm holder
 	translate([hr+fr+ofs+wwr+wr,-3/2-1-5/2,wl/2+6+2])
 	mirror([0,0,1])
-	cylinder(d1=15,d2=13.5,h=1.5);
+	cylinder(d1=wbd+5,d2=wbd+3.5,h=1.5);
 
 	//bottom worm holder
 	translate([hr+fr+ofs+wwr+wr,-3/2-1-5/2,-wl/2-6+3])
-	cylinder(d1=15,d2=13.5,h=1.5);
+	cylinder(d1=wbd+5,d2=wbd+3.5,h=1.5);
 
 	// rev bowden holder
 	translate([0,0,wl/2+6+2+3-10+1])
