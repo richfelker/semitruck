@@ -37,6 +37,9 @@ sa=-15; // 0.1
 // Worm bolt angles
 wba=[12,192];
 
+// Worm wheel bolt positions
+wwbp=[[3,-19/2-3-.3],[-3,19/2-3+.3]];
+
 fr=fd/2;
 hor=hod/2;
 hr=hd/2-bite; // hob (pitch) radius incorporates bite
@@ -192,7 +195,7 @@ union()
 	square([11,19],center=true);
 
 	translate([hr+fr+ofs,0])
-	for (p=[[3,-19/2-3-.3],[-3,19/2-3+.3]])
+	for (p=wwbp)
 	translate(p)
 	if (top)
 	circle(d=5);
@@ -251,9 +254,7 @@ module housing_base() {
 			translate([-5.5,-2.5-4-6])
 			square([11,4]);
 
-			translate([3,-19/2-3-0.3])
-			circle(d=5);
-			translate([-3,19/2-3+0.3])
+			for (p=wwbp) translate(p)
 			circle(d=5);
 		}
 	}
@@ -308,9 +309,7 @@ module bottom_nut_holes() {
 		hexagon(5.1);
 
 		translate([hr+fr+ofs,0]) {
-			translate([3,-19/2-3-.3])
-			rotate(sa) hexagon(5.1);
-			translate([-3,19/2-3+.3])
+			for (p=wwbp) translate(p)
 			rotate(sa) hexagon(5.1);
 		}
 	}
@@ -326,18 +325,14 @@ module bottom_nut_holes() {
 		circle(d=5.2);
 
 		translate([hr+fr+ofs,0]) {
-			translate([3,-19/2-3-.3])
-			circle(d=5.2);
-			translate([-3,19/2-3+.3])
+			for (p=wwbp) translate(p)
 			circle(d=5.2);
 		}
 	}
 
 
 	translate([hr+fr+ofs,0,0]) {
-		translate([3,-19/2-3-.3])
-		cylinder(d=2.8,h=100,center=true);
-		translate([-3,19/2-3+.3])
+		for (p=wwbp) translate(p)
 		cylinder(d=2.8,h=100,center=true);
 	}
 
