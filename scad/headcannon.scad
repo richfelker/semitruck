@@ -22,6 +22,9 @@ iba=26; // 0.1
 // Idler preload
 ipl=0.07; // 0.01
 
+// Worm outer diameter
+wod=10;
+
 // Worm pitch radius
 wr=4.3; // 0.01
 
@@ -241,7 +244,7 @@ module housing_base() {
 		for (a=wba) rotate(a)
 		translate([0,wbd/2+3])
 		circle(d=5);
-		circle(d=12);
+		circle(d=wod+1.5);
 		}
 	}
 
