@@ -244,7 +244,7 @@ module housing_base() {
 		for (a=wba) rotate(a)
 		translate([0,wbd/2+3])
 		circle(d=5);
-		circle(d=wod+1.5);
+		circle(d=max(wod+1.5,wbd+1.5));
 		}
 	}
 
