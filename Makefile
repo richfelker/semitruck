@@ -5,6 +5,10 @@ STL_NAMES = \
 	headcannon_top.stl \
 	headcannon_insert.stl \
 	headcannon_insert_cover.stl \
+	noncannonical_bottom.stl \
+	noncannonical_top.stl \
+	noncannonical_insert.stl \
+	noncannonical_insert_cover.stl \
 	pulley_60T.stl \
 	slider_housing.stl \
 	slider_insert.stl \
@@ -41,6 +45,9 @@ stl/%.stl: scad/%.scad
 
 stl/headcannon_%.stl: scad/headcannon.scad
 	$(OPENSCAD) -Dpart='"$(patsubst stl/headcannon_%.stl,%,$@)"' -o $@ $<
+
+stl/noncannonical_%.stl: scad/noncannonical.scad scad/headcannon.scad
+	$(OPENSCAD) -Dpart='"$(patsubst stl/noncannonical_%.stl,%,$@)"' -o $@ $<
 
 stl/slider_%.stl: scad/slider.scad
 	$(OPENSCAD) -Dpart='"$(patsubst stl/slider_%.stl,%,$@)"' -o $@ $<
