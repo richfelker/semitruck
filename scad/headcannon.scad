@@ -40,6 +40,9 @@ wba=[-15];
 // Worm wheel bolt positions
 wwbp=[[3+3,-19/2-3-.3],[-3,19/2-3+.3]];
 
+// Worm thrust bearing OD
+wbd=10;
+
 fr=fd/2;
 hor=hod/2;
 hr=hd/2-bite; // hob (pitch) radius incorporates bite
@@ -96,18 +99,18 @@ translate([hr+fr+ofs,0,0]) {
 	// worm bearings
 	wbc = 0.12;
 	translate([wwr+wr,-3/2-1-5/2,-wl/2-4]) {
-		cylinder(d=10+2*wbc,h=4);
+		cylinder(d=wbd+2*wbc,h=4);
 		translate([0,0,1.2])
-		cylinder(d=11+2*wbc,h=2.8);
+		cylinder(d=wbd+1+2*wbc,h=2.8);
 		translate([0,0,wl+4+5])
-		cylinder(d=11+2*wbc,h=2.8);
+		cylinder(d=wbd+1+2*wbc,h=2.8);
 		translate([0,0,wl+4+5])
-		cylinder(d=10+2*wbc,h=4);
+		cylinder(d=wbd+2*wbc,h=4);
 
 		translate([0,0,-4])
-		cylinder(d=7.5,h=34);
+		cylinder(d=wbd-2.5,h=34);
 
-		translate([0,10/2,0])
+		translate([0,wbd/2,0])
 		cylinder(d=0.8,h=wl+4+5+4);
 	}
 	
@@ -210,7 +213,7 @@ union()
 		circle(d=15);
 		translate([hr+fr+ofs+wwr+wr,-3/2-1-5/2])
 		for (a=wba) rotate(a)
-		translate([0,16/2])
+		translate([0,wbd/2+3])
 		if (top) circle(d=5);
 		else rotate(sa) hexagon(7);
 	}
@@ -236,7 +239,7 @@ module housing_base() {
 		difference() {
 		union()
 		for (a=wba) rotate(a)
-		translate([0,16/2])
+		translate([0,wbd/2+3])
 		circle(d=5);
 		circle(d=12);
 		}
@@ -304,7 +307,7 @@ module bottom_nut_holes() {
 	linear_extrude(height=3.4,convexity=3) {
 		translate([hr+fr+ofs+wwr+wr,-3/2-1-5/2])
 		for (a=wba) rotate(a)
-		translate([0,16/2])
+		translate([0,wbd/2+3])
 		rotate(sa)
 		hexagon(5.1);
 
@@ -319,7 +322,7 @@ module bottom_nut_holes() {
 	linear_extrude(height=3,convexity=3) {
 		translate([hr+fr+ofs+wwr+wr,-3/2-1-5/2])
 		for (a=wba) rotate(a)
-		translate([0,16/2])
+		translate([0,wbd/2+3])
 		rotate(-15)
 		hull() for (i=[0,5]) translate([0,i])
 		circle(d=5.2);
@@ -338,7 +341,7 @@ module bottom_nut_holes() {
 
 	translate([hr+fr+ofs+wwr+wr,-3/2-1-5/2])
 	for (a=wba) rotate(a)
-	translate([0,16/2])
+	translate([0,wbd/2+3])
 	cylinder(d=2.8,h=100,center=true);
 }
 
