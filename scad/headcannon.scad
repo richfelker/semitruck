@@ -34,6 +34,8 @@ bite=0.15; // 0.01
 // Angle to center entire extruder
 sa=-15; // 0.1
 
+// Worm bolt angles
+wba=[12,192];
 
 fr=fd/2;
 hor=hod/2;
@@ -204,7 +206,7 @@ union()
 		translate([hr+fr+ofs+wwr+wr,-3/2-1-5/2])
 		circle(d=15);
 		translate([hr+fr+ofs+wwr+wr,-3/2-1-5/2])
-		for (a=[12,192]) rotate(a)
+		for (a=wba) rotate(a)
 		translate([0,16/2])
 		if (top) circle(d=5);
 		else rotate(sa) hexagon(7);
@@ -230,8 +232,7 @@ module housing_base() {
 		translate([hr+fr+ofs+wwr+wr,-3/2-1-5/2])
 		difference() {
 		union()
-		for (a=[12,192]) rotate(a)
-		//for (a=[150,330]) rotate(a)
+		for (a=wba) rotate(a)
 		translate([0,16/2])
 		circle(d=5);
 		circle(d=12);
@@ -301,8 +302,7 @@ module bottom_nut_holes() {
 	translate([0,0,-wl/2-6-1])
 	linear_extrude(height=3.4,convexity=3) {
 		translate([hr+fr+ofs+wwr+wr,-3/2-1-5/2])
-		for (a=[12,192]) rotate(a)
-		//for (a=[150,330]) rotate(a)
+		for (a=wba) rotate(a)
 		translate([0,16/2])
 		rotate(sa)
 		hexagon(5.1);
@@ -319,8 +319,7 @@ module bottom_nut_holes() {
 	translate([0,0,wl/2+6+5-2.2])
 	linear_extrude(height=3,convexity=3) {
 		translate([hr+fr+ofs+wwr+wr,-3/2-1-5/2])
-		for (a=[12,192]) rotate(a)
-		//for (a=[150,330]) rotate(a)
+		for (a=wba) rotate(a)
 		translate([0,16/2])
 		rotate(-15)
 		hull() for (i=[0,5]) translate([0,i])
@@ -343,7 +342,7 @@ module bottom_nut_holes() {
 	}
 
 	translate([hr+fr+ofs+wwr+wr,-3/2-1-5/2])
-	for (a=[12,192]) rotate(a)
+	for (a=wba) rotate(a)
 	translate([0,16/2])
 	cylinder(d=2.8,h=100,center=true);
 }
