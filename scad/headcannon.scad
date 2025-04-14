@@ -28,8 +28,11 @@ wod=10;
 // Worm pitch radius
 wr=4.3; // 0.01
 
-// Worm threaded(?) length
+// Worm mating length
 wl=10.5; // 0.1
+
+// Worm sleeve length (extra past functional)
+wsl=5; // 0.1
 
 // Depth of filament hob cut into filament
 bite=0.15; // 0.01
@@ -45,6 +48,9 @@ wwbp=[[3+3,-19/2-3-.3],[-3,19/2-3+.3]];
 
 // Worm thrust bearing OD
 wbd=10;
+
+// Worm bearing thickness
+wbt=4;
 
 fr=fd/2;
 hor=hod/2;
@@ -101,20 +107,20 @@ translate([hr+fr+ofs,0,0]) {
 
 	// worm bearings
 	wbc = 0.12;
-	translate([wwr+wr,-3/2-1-5/2,-wl/2-4]) {
-		cylinder(d=wbd+2*wbc,h=4);
+	translate([wwr+wr,-3/2-1-5/2,-wl/2-wbt]) {
+		cylinder(d=wbd+2*wbc,h=wbt);
 		translate([0,0,1.2])
-		cylinder(d=wbd+1+2*wbc,h=2.8);
-		translate([0,0,wl+4+5])
-		cylinder(d=wbd+1+2*wbc,h=2.8);
-		translate([0,0,wl+4+5])
-		cylinder(d=wbd+2*wbc,h=4);
+		cylinder(d=wbd+1+2*wbc,h=wbt-1.2);
+		translate([0,0,wl+wbt+wsl])
+		cylinder(d=wbd+1+2*wbc,h=wbt-1.2);
+		translate([0,0,wl+wbt+wsl])
+		cylinder(d=wbd+2*wbc,h=wbt);
 
 		translate([0,0,-4])
 		cylinder(d=wbd-2.5,h=34);
 
 		translate([0,wbd/2,0])
-		cylinder(d=0.8,h=wl+4+5+4);
+		cylinder(d=0.8,h=wl+2*wbt+wsl);
 	}
 	
 	for (a=[-iba/2,iba/2])
@@ -270,13 +276,19 @@ module housing_base() {
 	cylinder(d=8,h=wl,center=true);
 
 	// top worm holder
-	translate([hr+fr+ofs+wwr+wr,-3/2-1-5/2,wl/2+6+2])
-	mirror([0,0,1])
-	cylinder(d1=wbd+5,d2=wbd+3.5,h=1.5);
+	translate([hr+fr+ofs+wwr+wr,-3/2-1-5/2,wl/2+wsl+1.5]) {
+		cylinder(d1=wbd+3.5,d2=wbd+5,h=0.9);
+		translate([0,0,0.9])
+		cylinder(d=wbd+5,h=6+5-wsl-1.5-0.9);
+	}
 
 	//bottom worm holder
-	translate([hr+fr+ofs+wwr+wr,-3/2-1-5/2,-wl/2-6+3])
-	cylinder(d1=wbd+5,d2=wbd+3.5,h=1.5);
+	translate([hr+fr+ofs+wwr+wr,-3/2-1-5/2,-wl/2-1.5])
+	mirror([0,0,1]) {
+		cylinder(d1=wbd+3.5,d2=wbd+5,h=0.9);
+		translate([0,0,0.9])
+		cylinder(d=wbd+5,h=6-1.5-0.8);
+	}
 
 	// rev bowden holder
 	translate([0,0,wl/2+6+2+3-10+1])
