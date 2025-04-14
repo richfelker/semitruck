@@ -4,7 +4,7 @@ bod=6;
 bid=3;
 bt=2; // 0.5
 
-part="arm"; // [ "arm", "big", "end", "center" ]
+part="arm"; // [ "arm", "big", "end", "motorend", "3mmend", "center" ]
 preview=false;
 
 module center_block(s=s) {
@@ -101,7 +101,7 @@ module pegs(s=12) {
 	}
 }
 
-module new_arm(s=12,end=false,sw=6) {
+module new_arm(s=12,end=false,d_cut=false,shaft_depth=7,shaft_diameter=5.05,sw=6) {
 	difference() {
 		new_arm_outer(s=s,extra=(end||sw>6?2:0));
 		translate([0,-s/2,0])
@@ -136,12 +136,18 @@ module new_arm(s=12,end=false,sw=6) {
 			translate([0,0,-100/2])
 			cube(100,center=true);
 		} else {
-			rotate([90,0,0])
-			cylinder(d=5.05,h=7);
+			translate([0,-7,0])
+			rotate([-90,0,0])
+			if (d_cut) {
+				linear_extrude(height=shaft_depth+1)
+				D(shaft_diameter);
+			} else {
+				cylinder(d=shaft_diameter,h=shaft_depth+1);
+			}
 			translate([0,-6,0])
 			translate([0,-100/2,0])
 			cube(100,center=true);
-			translate([0,0,0])
+			translate([0,min(shaft_depth-6,2),0])
 			translate([0,-100/2,100/2])
 			cube([1.8,100,100],center=true);
 
@@ -160,6 +166,13 @@ module new_arm(s=12,end=false,sw=6) {
 	pegs(s);
 }
 
+module D(d=5,f=.5) {
+	intersection() {
+		circle(d=d);
+		translate([0,-f]) square([10,d],center=true);
+	}
+}
+
 module hexagon(w) polygon([for (i=[1:6]) w/sqrt(3) * [cos(60*i), sin(60*i)]]);
 
 if (part=="arm")
@@ -168,6 +181,10 @@ if (part=="big")
 new_arm(end=false,sw=10);
 else if (part=="end")
 new_arm(end=true);
+else if (part=="motorend")
+new_arm(end=true,d_cut=true,shaft_depth=100);
+else if (part=="3mmend")
+new_arm(end=true,shaft_depth=8,shaft_diameter=3);
 else if (part=="center")
 center_block();
 

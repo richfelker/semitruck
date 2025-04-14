@@ -16,6 +16,8 @@ STL_NAMES = \
 	ujoint_arm.stl \
 	ujoint_big.stl \
 	ujoint_end.stl \
+	ujoint_motorend.stl \
+	ujoint_3mmend.stl \
 	ujoint_center.stl \
 	#
 
