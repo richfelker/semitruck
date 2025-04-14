@@ -46,9 +46,13 @@ sa=-15; // 0.1
 wba=[-15];
 
 // Worm wheel bolt positions
-wwbp=[[3+3,-19/2-3-.3],[-3,19/2-3+.3]];
+wwbp=[[3+3,-19/2-3-.3],[-3+0.5,19/2-3+.3]];
 
 // Worm thrust bearing OD
 wbd=8;
+
+// Worm bearing thickness
+wbt=3.5;
+
 
 part="assembly"; // [ "assembly", "bottom", "top", "insert", "insert_cover" ]
