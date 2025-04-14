@@ -38,7 +38,7 @@ release: $(RELEASE_FILES)
 clean:
 	rm -rf stl $(RELEASE_FILES)
 
-$(STLS): stl
+$(STLS): | stl
 
 stl:
 	mkdir -p stl
