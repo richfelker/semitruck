@@ -19,6 +19,7 @@ STL_NAMES = \
 	ujoint_motorend.stl \
 	ujoint_3mmend.stl \
 	ujoint_center.stl \
+	wormwheel-hgxv1.stl \
 	#
 
 STLS = $(STL_NAMES:%=stl/%)
@@ -59,6 +60,9 @@ stl/ujoint_%.stl: scad/ujoint.scad
 
 stl/pulley_%T.stl: scad/pulley.scad
 	$(OPENSCAD) -Dnteeth='$(patsubst stl/pulley_%T.stl,%,$@)' -o $@ $<
+
+stl/wormwheel-hgxv%.stl: scad/wormwheel-hgx.scad
+	$(OPENSCAD) -Dversion='$(patsubst stl/wormwheel-hgxv%.stl,%,$@)' -o $@ $<
 
 semitruck.zip: $(STLS)
 	zip -r $@ README.md scad stl
