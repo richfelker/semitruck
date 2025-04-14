@@ -287,7 +287,7 @@ module housing_base() {
 	mirror([0,0,1]) {
 		cylinder(d1=wbd+3.5,d2=wbd+5,h=0.9);
 		translate([0,0,0.9])
-		cylinder(d=wbd+5,h=6-1.5-0.8);
+		cylinder(d=wbd+5,h=6-1.5-0.9);
 	}
 
 	// rev bowden holder
