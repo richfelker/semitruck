@@ -179,11 +179,11 @@ module slider_assembly() {
 	for (a=[90:90:270]) rotate(a)
 	slider_insert();
 
-	%translate([6/2+9/2,0,5])
+	*%translate([6/2+9/2,0,5])
 	rotate([90,0,0])
 	cylinder(d=9,h=5,center=true);
 
-	%cube([6,6,100],center=true);
+	*%cube([6,6,100],center=true);
 
 	*%translate([0,0,-19+5])
 	cylinder(d=18+15,h=40);
@@ -193,7 +193,7 @@ use <emotor_mount.scad>;
 
 // output
 if (part == "assembly") {
-	%translate([-15,0,-6]) emotor_mount();
+	*translate([-15,0,-6]) emotor_mount();
 	rotate([180,0,0]) slider_assembly();
 } else if (part == "housing") {
 	slider_housing();
