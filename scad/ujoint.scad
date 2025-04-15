@@ -7,8 +7,7 @@ bt=2; // 0.5
 part="arm"; // [ "arm", "big", "end", "motorend", "3mmend", "center" ]
 preview=false;
 
-module center_block(s=s) {
-difference() {
+module ujoint_center(s=s) difference() {
 	cube(s,center=true);
 	for (ax=[0,90])
 	rotate([ax,0,0])
@@ -19,34 +18,33 @@ difference() {
 	translate([(s-1.2)*sqrt(2)/2+s,0,0]) cube(2*s,center=true);
 
 	for (a=[0:90:270]) rotate(a) {
-	translate([s/2-bt,0,0])
-	rotate([0,90,0])
-	cylinder(d=6.1,h=10);
-
-	translate([s/2-bt-0.6,0,0])
-	rotate([0,90,0])
-	cylinder(d1=3.5,d2=5.0,h=1);
-
-	translate([s/2-bt-0.6,0,0])
-	hull()
-	for (z=[0,s]) translate([0,0,z])
-	rotate([0,90,0])
-	cylinder(d1=3,d2=3.75,h=1);
-
-	hull() {
-		translate([s/2-bt+0.2,0,1.9])
-		rotate([0,90,0])
-		cylinder(d=6,h=10);
-
-		translate([s/2-bt+0.2,0,s])
+		translate([s/2-bt,0,0])
 		rotate([0,90,0])
 		cylinder(d=6.1,h=10);
+
+		translate([s/2-bt-0.6,0,0])
+		rotate([0,90,0])
+		cylinder(d1=3.5,d2=5.0,h=1);
+
+		translate([s/2-bt-0.6,0,0])
+		hull()
+		for (z=[0,s]) translate([0,0,z])
+		rotate([0,90,0])
+		cylinder(d1=3,d2=3.75,h=1);
+
+		hull() {
+			translate([s/2-bt+0.2,0,1.9])
+			rotate([0,90,0])
+			cylinder(d=6,h=10);
+
+			translate([s/2-bt+0.2,0,s])
+			rotate([0,90,0])
+			cylinder(d=6.1,h=10);
+		}
 	}
-	}
-}
 }
 
-module new_arm_outer(s=12,extra=0) {
+module ujoint_arm_outer(s=12,extra=0) {
 	intersection() {
 		translate([0,-s/2,0])
 		hull() {
@@ -68,14 +66,14 @@ module new_arm_outer(s=12,extra=0) {
 	rotate([90,0,0])
 	linear_extrude(height=12+s/2+(s+6)/2,convexity=3)
 	difference() {
-	square([s+1+2*extra,s+7],center=true);
-	for (i=[-1,1],j=[-1,1])
-	translate([(s/2+5+extra)*i,(s/2+3)*j])
-	circle(r=9);
+		square([s+1+2*extra,s+7],center=true);
+		for (i=[-1,1],j=[-1,1])
+		translate([(s/2+5+extra)*i,(s/2+3)*j])
+		circle(r=9);
 	}
 }
 
-module pegs(s=12) {
+module ujoint_arm_pegs(s=12) {
 	for (i=[0,1]) mirror([i,0,0])
 	difference() {
 		union() {
@@ -101,9 +99,9 @@ module pegs(s=12) {
 	}
 }
 
-module new_arm(s=12,end=false,d_cut=false,shaft_depth=7,shaft_diameter=5.05,sw=6) {
+module ujoint_arm(s=12,end=false,d_cut=false,shaft_depth=7,shaft_diameter=5.05,sw=6) {
 	difference() {
-		new_arm_outer(s=s,extra=(end||sw>6?2:0));
+		ujoint_arm_outer(s=s,extra=(end||sw>6?2:0));
 		translate([0,-s/2,0])
 		hull() {
 			sphere(d=s+2);
@@ -163,7 +161,7 @@ module new_arm(s=12,end=false,d_cut=false,shaft_depth=7,shaft_diameter=5.05,sw=6
 			}
 		}
 	}
-	pegs(s);
+	ujoint_arm_pegs(s);
 }
 
 module D(d=5,f=.5) {
@@ -176,17 +174,17 @@ module D(d=5,f=.5) {
 module hexagon(w) polygon([for (i=[1:6]) w/sqrt(3) * [cos(60*i), sin(60*i)]]);
 
 if (part=="arm")
-new_arm(end=false);
+ujoint_arm(end=false);
 if (part=="big")
-new_arm(end=false,sw=10);
+ujoint_arm(end=false,sw=10);
 else if (part=="end")
-new_arm(end=true);
+ujoint_arm(end=true);
 else if (part=="motorend")
-new_arm(end=true,d_cut=true,shaft_depth=100);
+ujoint_arm(end=true,d_cut=true,shaft_depth=100);
 else if (part=="3mmend")
-new_arm(end=true,shaft_depth=8,shaft_diameter=3);
+ujoint_arm(end=true,shaft_depth=8,shaft_diameter=3);
 else if (part=="center")
-center_block();
+ujoint_center();
 
 
 if (preview)
@@ -195,7 +193,7 @@ rotate([55,0,0])
 {
 rotate([-90,0,0])
 center_block();
-rotate([0,90,180]) new_arm();
+rotate([0,90,180]) ujoint_arm();
 }
 
 $fs=.2;
