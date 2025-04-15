@@ -99,14 +99,35 @@ the shaft part lengths.
 - Printed `ujoint_arm.stl` (3)
 - Printed `ujoint_end.stl` (1)
 
-### Headcannon (effector side) assembly
+### Noncannonical (effector side) assembly based on HGX hob
+
+(Skip this section if you are building the original version using the
+discontinued NF Cannon gear set.)
+
+- HGX extruder parts set (v1 or v2, see below) (1)
+- F3-8M (3x8x3.5 mm) thrust bearings (4)
+- M2.5 6 mm screws (2)
+- M2.5 25 mm screws (3)
+- M2.5 nuts (3)
+- M3 10 mm button head screws (2)
+- M3 nuts (2)
+- MR63 (3x6x2 mm) bearings (2)
+- Printed `noncannonical_bottom.stl` (1)
+- Printed `noncannonical_top.stl` (1)
+- Printed `noncannonical_insert.stl` (1)
+- Printed `noncannonical_insert_cover.stl` (1)
+- Printed `wormwheel-hgxv1.stl` or `wormwheel-hgxv2.stl` (1)
+
+### Headcannon (effector side) assembly based on NF Cannon gears
+
+(Skip this section if you will be using the HGX gears.)
 
 - Mellow NF Cannon parts - set 2, without motor (1)
-- F3-8M (3x8x3.5 mm) thrust bearing (2)
-- F5-10M (5x10x4 mm) thrust bearing (2)
+- F3-8M (3x8x3.5 mm) thrust bearings (2)
+- F5-10M (5x10x4 mm) thrust bearings (2)
 - M2.5 6 mm screws (2)
-- M2.5 25 mm screws (4)
-- M2.5 nuts (4)
+- M2.5 25 mm screws (3)
+- M2.5 nuts (3)
 - M3 10 mm button head screws (2)
 - M3 nuts (2)
 - MR63 (3x6x2 mm) bearings (2)
@@ -117,8 +138,12 @@ the shaft part lengths.
 
 ### Recommended Sources
 
-- Mellow NF Cannon parts:
-  https://www.aliexpress.com/item/3256805766620295.html
+- HGX v1 gear set:
+
+- HGX v2 gear set:
+
+- Mellow NF Cannon parts: NOT RECOMMENDED. These are discontinued, and
+  may be changed/incompatible if re-issued.
 
 - Carbon Fiber:
   https://windcatcherrc.com/product/carbon-fiber-sq-outer-with-rnd-inner-tube-6mm-x-6mm-x-4mm-x-1000mm/
@@ -136,16 +161,36 @@ command line interface available. The individual `.scad` files can
 also be processed manually in OpenSCAD, using the customizer UI to
 select which subpart to generate then exporting the STL.
 
-The Headcannon insert parts should be printed with 0.1 mm layer height
-and 100% infill for best results. Everything else can be printed with
-0.2 mm layer height, 1.0-1.2 mm shell thickness, and 20% infill.
+### Printed worm wheel
+
+If building the Noncannonical (HGX) version with printed worm wheel,
+the worm wheel should be printed with 0.14 mm layer height, 100%
+infill, and random seams. A seam that is aligned across layers *may
+lead to periodic artifacts* and should not be used. Printing this
+requires a well-tuned printer and may require some iteration with
+different settings depending on material shrinkage and other factors.
+The provided source and STL are designed to real physical dimensions,
+not any fudge factors for printing with a particular material.
+
+The recommended material for the worm wheel is PET (not PETG). As the
+worm wheel and thrust bearings against it need lubrication, it should
+not be printed in materials incompatible with grease, such as ABS or
+ASA. POM or nylon may be options if PET is not available, but they
+have not been tested.
+
+### Other printed parts
+
+The toolhead-side insert parts should be printed with 0.1 mm layer
+height and 100% infill for best results. Everything else can be
+printed with 0.2 mm layer height, 1.0-1.2 mm shell thickness, and 20%
+infill.
 
 Primary development and testing was done with parts printed in PET.
 
-The Headcannon parts should ideally be printed in material with low to
-no creep, and the filament path insert especially should avoid PLA or
-other materials that soften at low temperatures, as it's possible to
-pull heat up into it when retracting, especially if using long
+The toolhead-side parts should ideally be printed in material with low
+to no creep, and the filament path insert especially should avoid PLA
+or other materials that soften at low temperatures, as it's possible
+to pull heat up into it when retracting, especially if using long
 retractions at end-of-print or when pausing to avoid oozing while
 idle.
 
@@ -255,27 +300,45 @@ Move the toolhead out of the way well below maximum Z, and insert the
 end shaft segment up through the bottom of the slider. The fit should
 be somewhat tight, turning the bearings inside the slider as it's
 moved. Raise the shaft until the joint at the lower end is higher than
-the top of the toolhead, then bring it down onto the 5mm worm gear
-shaft and clamp it in place by tightening the screw.
+the top of the toolhead, then bring it down onto the worm gear shaft
+and clamp it in place by tightening the screw.
 
 
 ## Firmware Configuration
+
+### Noncannonical (HGX based) configuration
+
+The HGX hob has a measured pitch circumference of 56.94 mm, and the
+worm gear reduction ratio is 36:2 (18:1). The motor-side pulley
+gives a 24:60 (2:5) increase in speed. If using Klipper, these values
+can be entered directly without having to do any math:
+
+    [extruder]
+    rotation_distance: 56.94
+    gear_ratio: 24:60, 36:2
+
+To convert to E-steps-per-mm for other firmware, some math is needed.
+Applying the gear ratios, this is 7.90833 mm of filament advance per
+rotation of the E motor, or 25.2898 **full steps** per mm. At 16
+microsteps per step, that comes to 404.636 E-steps-per-mm.
+
+### Headcannon (NF Cannon gearset based) configuration
 
 The Cannon hob has a pitch circumference documented by Mellow as 59.08
 mm, and the worm gear reduction ratio is 39:2 (19.5:1). The motor-side
 pulley gives a 24:60 (2:5) increase in speed. If using Klipper, these
 values can be entered directly without having to do any math:
 
-```
-[extruder]
-rotation_distance: 59.08
-gear_ratio: 24:60, 39:2
-```
+    [extruder]
+    rotation_distance: 59.08
+    gear_ratio: 24:60, 39:2
 
 To convert to E-steps-per-mm for other firmware, some math is needed.
 Applying the gear ratios, this is 7.57435 mm of filament advance per
 rotation of the E motor, or 26.4049 **full steps** per mm. At 16
 microsteps per step, that comes to 422.478 E-steps-per-mm.
+
+### In general
 
 Polarity of the E motor step direction pin will vary depending on
 motor wiring. It may be determined experimentally, or set directly to
@@ -284,20 +347,23 @@ from the output side).
 
 Additional recommended starting points for settings with Klipper:
 
-```
-[extruder]
-max_extrude_only_velocity: 45
-max_extrude_only_accel: 4000
-microsteps: 64
-retract_length: 0.20
-pressure_advance: 0.036
-pressure_advance_smooth_time: 0.010
-
-[tmc5160 extruder]
-run_current: 2.8
-stealthchop_threshold: 0
-interpolate: false
-```
+    [extruder]
+    max_extrude_only_velocity: 45
+    max_extrude_only_accel: 4000
+    microsteps: 64
+    pressure_advance: 0.036
+    pressure_advance_smooth_time: 0.010
+    
+    [firmware_retraction]
+    retract_length: 0.20
+    # Speeds set way above limit so M220 won't slow down retracts
+    retract_speed: 200
+    unretract_speed: 200
+    
+    [tmc5160 extruder]
+    run_current: 2.8
+    stealthchop_threshold: 0
+    interpolate: false
 
 The above TMC configuration should be adapted to your particular
 drivers. If they do not support the full current for the motor, it may
