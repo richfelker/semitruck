@@ -105,6 +105,8 @@ the shaft part lengths.
 discontinued NF Cannon gear set.)
 
 - HGX extruder parts set (v1 or v2, see below) (1)
+- 3mm steel shaft, at least 35 mm in length, to be cut
+- 0.5 module 2 start worm gear, 7mm outer diameter by 12 mm length
 - F3-8M (3x8x3.5 mm) thrust bearings (4)
 - M2.5 6 mm screws (2)
 - M2.5 25 mm screws (3)
@@ -184,6 +186,9 @@ The toolhead-side insert parts should be printed with 0.1 mm layer
 height and 100% infill for best results. Everything else can be
 printed with 0.2 mm layer height, 1.0-1.2 mm shell thickness, and 20%
 infill.
+
+The toolhead side top and bottom housing need minor supports for the
+nuts and bolt heads. No other parts need supports.
 
 Primary development and testing was done with parts printed in PET.
 
@@ -292,6 +297,117 @@ of the belt. If needed, loosen the clamp on the pulley and slide it
 up/down on the motor shaft to align with the slider-side pulley, then
 retighten. Pull the motor tight to tension the belt adequately, and,
 while holding it, tighten down the four motor screws.
+
+
+## Toolhead side assembly
+
+First, make sure you have the appropriate set of printed parts --
+Noncannonical to use the HGX hob; Headcannon if you have and will be
+using the discontinued Mellow NF Cannon gears.
+
+### Filament path and idler assembly
+
+First check that the filament path has clearance for filament. A 2 mm
+diameter screwdriver shaft should fit through it with some friction,
+and clear out any roughness or stringing that might be in the way.
+
+Begin by assembling the filament path and idler bearing insert. Place
+two MR63 bearings in the cutouts of the printed insert and slide the
+printed insert cover over them. Place M3 nuts in the two hexagonal
+cutouts in the cover, and insert and tighten 10 mm M3 button head
+screws from the other side.
+
+Before continuing, ensure that the filament path insert can fit into
+the rectangular holes in the printed housing top and bottom parts.
+Clean up any "elephant foot" or other print issues that might keep it
+from fitting later.
+
+### Hob and worm wheel
+
+Now begin with the hob and worm wheel. If you are using the HGX hob,
+you will need to separate it from the spur gear that came attached to
+it. This can be done non-destructively for the HGX version 1. Insert a
+thin flat tool such as a putty knife or razor blade between the
+plastic gear and the filament hob, and lightly pry back and forth
+until they can be pulled apart by hand. Alternatively, you may apply
+pressure to the plastic pins through the hob to push the gear out.
+Once the hob is separated, press the printed worm wheel onto it.
+
+If using the NF Cannon gears, the gear on one of the two hobs already
+serves as a worm wheel matching the worm. To check which one, hold the
+gear and hob vertically with the axis running left/right, and look at
+the slant of the teeth. The correct one is the one where the teeth
+slant upward to the left and downward to the right.
+
+Now, insert one of the needle bearings from the HGX or Cannon set in
+the hob, and put the included shafts, 3 mm diameter and approximately
+15.8 mm in length, through the center. Next, assemble the F3-8M thrust
+bearings on the shaft. The races with the larger inner diameter, which
+are loose and spin freely on the shaft, belong on the inside next to
+the worm wheel and filament hob, with the grooves facing outward. The
+balls go next, and the races with the smaller diameter go on the
+outside, with the grooves facing inward towards the balls. They should
+"snap" onto the shaft and not fall off easily. Before putting them on,
+apply a small amount of grease.
+
+### Worm gear
+
+If using the HGX, the worm gear must be pressed onto the 3 mm shaft.
+This can be done without any specialized tooling beyond a hammer, 4 mm
+washer, and small socket. Place the worm on top of the socket with one
+or more washers in between, and hammer the end of the shaft until
+3-3.5 mm of it extend out the other end of the worm.
+
+If you are using the NF Cannon gears, insert the 5 mm diameter shaft
+through the worm with 4-4.5 mm extending out the threaded side and
+tighten the set screw on the worm sleeve.
+
+Now, assemble the thrust bearings on the shaft. The process is the
+same for either version. This time, the smaller ID races go on first,
+next to the worm. The fit should be very tight, and may also require a
+press or hammering using the same technique as above. The balls and
+outer races will be loose until installation; for now, just grease
+them.
+
+### Housing
+
+Begin by pressing 3 M2.5 nuts into the holes in the bottom part of the
+housing. Turn it upright, and place the hob/worm wheel assembly with
+the bearings in the halfround cutouts, with the hob on the side facing
+the rectangular hole and the worm wheel on the side facing the round
+hole.
+
+Before continuing, insert the 6 mm M2.5 button head screws in the
+two holes beside the rectangular filament path hole. Depending on
+which variant you are building, they may be difficult to insert or
+remove later.
+
+Next, place the filament path insert in the rectangular hole.
+
+Finally, place the outer race of the worm thrust bearing in the circular
+hole, being sure the groove is facing upward. Apply some grease and
+place the ball cage and worm assembly on top, with the long side of
+the shaft pointing upward. Grease the other ball cage and place it on
+top, followed by the final thrust bearing outer race, with the groove
+facing downward.
+
+Line up the top of the housing and press it closed on top of the
+bearings and filament path. Insert three 25 mm M2.5 screws to secure
+it to the bottom part.
+
+With the screws tightened, there should be no vertical play in the
+worm. If this is not the case, due to manufacturing variance in the
+worm, printing inaccuracy, or other factors, it will be necessary to
+shim the top side, either between the worm and thrust bearing, or
+between the thrust bearing and housing, with a suitably sized washer
+or printed part. It is critical that the worm be well-constrained
+vertically; otherwise the extruder will have catastrophic backlash and
+print quality will be very poor.
+
+It should be difficult to turn the worm by hand, but possible by
+gripping the shaft with tools or a drill chuck, or with the printed
+U-joint arm end. At this point you can test feeding filament through
+manually by turning the worm.
 
 
 ## Installing the square shaft
