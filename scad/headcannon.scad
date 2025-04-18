@@ -135,8 +135,8 @@ module gear_cuts()
 translate([hr+fr+ofs,0,0]) {
 	rotate([90,0,0]) {
 		cylinder(r=hor+0.5,h=3+0.5,center=true);
-		translate([0,0,1.5])
-		cylinder(d=wwod+1,h=6+0.5);
+		translate([0,0,1.7])
+		cylinder(d=wwod+0.6,h=6+0.3);
 	}
 }
 
@@ -157,7 +157,7 @@ translate([hr+fr+ofs,0,0]) {
 		cylinder(r=br+0.3,h=2.0+0.3,center=true);
 		if (tops)
 		translate([0,0,(2.0+0.6)/2])
-		cylinder(r1=br+0.3,r2=0,h=1*(br+0.5));
+		cylinder(r1=br+0.3,r2=0,h=0.7*(br+0.3));
 	}
 	// old fix for tiny unprintable wall?
 	*translate([-hr-2*fr-br+ipl,0,0])
