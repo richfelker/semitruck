@@ -141,7 +141,7 @@ discontinued NF Cannon gear set.)
 ### Recommended Sources
 
 - HGX v1 gear set:
-  https://www.aliexpress.us/item/3256808173742215.html
+  https://www.aliexpress.com/item/3256808173742215.html
 
 - HGX v2 gear set: Not yet supported.
 
