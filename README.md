@@ -118,7 +118,7 @@ discontinued NF Cannon gear set.)
 - Printed `noncannonical_top.stl` (1)
 - Printed `noncannonical_insert.stl` (1)
 - Printed `noncannonical_insert_cover.stl` (1)
-- Printed `wormwheel-hgxv1.stl` or `wormwheel-hgxv2.stl` (1)
+- Printed `wormwheel-hgxv1.stl` (1)
 
 ### Headcannon (effector side) assembly based on NF Cannon gears
 
@@ -141,8 +141,13 @@ discontinued NF Cannon gear set.)
 ### Recommended Sources
 
 - HGX v1 gear set:
+  https://www.aliexpress.us/item/3256808173742215.html
 
-- HGX v2 gear set:
+- HGX v2 gear set: Not yet supported.
+
+- 0.5 module 2 start worm gear, 7mm outer diameter by 12 mm length:
+  https://www.aliexpress.com/item/2255800266497667.html or
+  https://www.aliexpress.com/item/3256804727007575.html
 
 - Mellow NF Cannon parts: NOT RECOMMENDED. These are discontinued, and
   may be changed/incompatible if re-issued.
