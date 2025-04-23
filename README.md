@@ -1,5 +1,7 @@
 # The Semitruck Extruder
 
+![CAD diagram of Semitruck shaft](images/semitruck_og.png)
+
 The Semitruck is a *rigid* remote direct drive (RDD) extruder,
 utilizing a double Cardan shaft with printed joints, square
 carbon-fiber tube engaging with a slider gear assembly, and an
