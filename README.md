@@ -24,10 +24,25 @@ The Semitruck has been operated at up to 90k mm/s² kinematic
 accelerations and 60 mm³/s flow. It can achieve pressure advance
 smooth times at least as low as 10 ms.
 
+Like this project? Support it and my other work on Ko-fi or Patreon:
+
+- https://ko-fi.com/daliasprints
+- https://patreon.com/daliasprints
+
 
 ## Project Status
 
-This is an early private beta for testing and feedback.
+This form of the Semitruck (the "OG") has undergone some level of
+third party testing during private early-access beta for patrons, and
+should be reasonably easy to reproduce and get working from the BOM
+and build instructions included below. It should be considered "public
+beta" level at this point.
+
+Another variant with a telescoping shaft, the "Semitruck Prime", is
+also in development and will be integrated in the future. It is not a
+replacement, but makes different tradeoffs that might make it more or
+less suitable for different machine configurations and scalings. Both
+variants will be treated as first-class for the forseeable future.
 
 
 ## Prerequisites
