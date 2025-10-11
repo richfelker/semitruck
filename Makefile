@@ -13,6 +13,9 @@ STL_NAMES = \
 	slider_housing.stl \
 	slider_insert.stl \
 	slider_pulley.stl \
+	telescope_housing.stl \
+	telescope_insert.stl \
+	telescope_stabilizer.stl \
 	ujoint_arm.stl \
 	ujoint_big.stl \
 	ujoint_end.stl \
@@ -54,6 +57,9 @@ stl/noncannonical_%.stl: scad/noncannonical.scad scad/headcannon.scad
 
 stl/slider_%.stl: scad/slider.scad
 	$(OPENSCAD) -Dpart='"$(patsubst stl/slider_%.stl,%,$@)"' -o $@ $<
+
+stl/telescope_%.stl: scad/telescope.scad
+	$(OPENSCAD) -Dpart='"$(patsubst stl/telescope_%.stl,%,$@)"' -o $@ $<
 
 stl/ujoint_%.stl: scad/ujoint.scad
 	$(OPENSCAD) -Dpart='"$(patsubst stl/ujoint_%.stl,%,$@)"' -o $@ $<
