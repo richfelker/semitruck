@@ -2,11 +2,21 @@
 
 ![CAD diagram of Semitruck shaft](images/semitruck_og.png)
 
-The Semitruck is a *rigid* remote direct drive (RDD) extruder,
-utilizing a double Cardan shaft with printed joints, square
-carbon-fiber tube engaging with a slider gear assembly, and an
-ultra-compact worm-driven, large-diameter filament hob with dual
-idlers. This makes it possible to achieve, simultaneously:
+The Semitruck is a *rigid* remote direct drive (RDD) extruder based on
+printed Cardan joints, square carbon fiber shaft, and a coupling that
+transfers rotational force through ball bearings that can freely roll
+along the four faces of the square shaft. It comes in two variants:
+
+- OG Semitruck, where the vertical segment of the drive shaft engages
+  with a fixed-position "slider gear" at the top of the printer and is
+  free to move up and down, and
+
+- Semitruck Prime, with a telescoping double Cardan shaft coupled
+  directly to the motor at the top of the printer.
+
+In either variant, the shaft drives an ultra-compact worm-based
+extruder on the toolhead. This makes it possible to achieve,
+simultaneously:
 
 - Extremely low moving mass
 - High extrusion speed
@@ -32,17 +42,17 @@ Like this project? Support it and my other work on Ko-fi or Patreon:
 
 ## Project Status
 
-This form of the Semitruck (the "OG") has undergone some level of
-third party testing during private early-access beta for patrons, and
-should be reasonably easy to reproduce and get working from the BOM
-and build instructions included below. It should be considered "public
-beta" level at this point.
+The OG Semitruck has been in public beta since May of 2025. It was
+successfully operated on the original build of the M45 delta from 2023
+to early 2025, and was successfuly reproduced during private beta.
 
-Another variant with a telescoping shaft, the "Semitruck Prime", is
-also in development and will be integrated in the future. It is not a
-replacement, but makes different tradeoffs that might make it more or
-less suitable for different machine configurations and scalings. Both
-variants will be treated as first-class for the forseeable future.
+The Semitruck Prime has been operated on the original build of the M45
+delta since March of 2025. It entered public beta in October of 2025.
+
+The Prime does not supersede the OG, but makes different tradeoffs
+that might make it more or less suitable for different machine
+configurations and scalings. Both variants will be treated as
+first-class for the forseeable future.
 
 
 ## Prerequisites
@@ -81,7 +91,9 @@ the shaft part lengths.
 
 ## Bill of Materials
 
-### Motor, pulley, and and mounting assembly
+### OG Semitruck
+
+#### Motor, pulley, and and mounting assembly
 
 - LDO 42STH48-2804AC motor (1)
 - M3 6 mm screws (4)
@@ -96,7 +108,7 @@ the shaft part lengths.
 - Printed `bearing_clip.stl` (1)
 - Printed `pulley_60T.stl` (1)
 
-### Slider gear assembly
+#### Slider gear assembly
 
 - 603ZZ (3x9x5 mm) bearings (8)
 - 6702ZZ (15x21x4) bearings (2)
@@ -106,7 +118,7 @@ the shaft part lengths.
 - Printed `slider_pulley.stl` (1)
 - Printed `slider_insert.stl` (4)
 
-### Shaft assembly
+#### Shaft assembly
 
 - Square 6 mm x 6 mm x round 4 mm ID carbon fiber tube (1)
 - MR63 (3x6x2 mm) bearings (8)
@@ -114,7 +126,32 @@ the shaft part lengths.
 - M2.5 nut (1)
 - Printed `ujoint_center.stl` (2)
 - Printed `ujoint_arm.stl` (3)
-- Printed `ujoint_end.stl` (1)
+- Printed `ujoint_3mmend.stl` or `ujoint_end.stl` (1)
+
+### Semitruck Prime
+
+#### Motor and mounting assembly
+
+- Leadshine 42CM06 2.5A motor (1)
+- M3 6 mm screws (4)
+- (Machine-specific mounting platform)
+
+#### Telescoping shaft assembly
+
+- 603ZZ (3x9x5 mm) bearings (4)
+- Square 6 mm x 6 mm outer by round 4 mm ID carbon fiber tube (1)
+- Square 10 mm x 10 mm outer by square 8.5 mm x 8.5 mm inner carbon fiber tube (1)
+- MR63 (3x6x2 mm) bearings (8)
+- M2.5 6 mm screw (2)
+- M2.5 nut (2)
+- Printed `telescope_housing.stl` (1)
+- Printed `telescope_insert.stl` (4)
+- Printed `telescope_stabilizer.stl` (1)
+- Printed `ujoint_center.stl` (2)
+- Printed `ujoint_arm.stl` (1)
+- Printed `ujoint_big.stl` (1)
+- Printed `ujoint_motorend.stl` (1)
+- Printed `ujoint_3mmend.stl` or `ujoint_end.stl` (1)
 
 ### Noncannonical (effector side) assembly based on HGX hob
 
@@ -225,7 +262,9 @@ For the rest of the parts, any rigid material is probably okay, even
 PLA.
 
 
-## Shaft length calculations
+## OG Semitruck build
+
+### Shaft length calculations
 
 In order for the extruder to reach the entire build volume, the
 lengths of the middle and vertical shaft segments must be chosen
@@ -248,7 +287,7 @@ recommended **not** to compute it yet, instead waiting to cut the
 shaft until after installation is checked.
 
 
-## Cutting and assembling the shaft part
+### Cutting and assembling the shaft part
 
 The middle shaft segment should be cut to exactly 32 mm shorter than
 the length determined above. Each U-joint arm end adds 16 mm to the
@@ -275,7 +314,7 @@ slots.
 Repeat for the second U-joint.
 
 
-## Assembling the slider
+### Assembling the slider
 
 The slider consists of a 4-part printed insert holding 8 bearings, an
 outer housing, and a printed GT2-tooth-profile pulley integrated with
@@ -298,7 +337,7 @@ Place the two 6702ZZ bearings over the two ends of the slider assembly
 in preparation for slotting it into the motor mount assembly.
 
 
-## Mounting the extruder motor
+### Mounting the extruder motor
 
 Attach the slider to the printed motor bracket with the closed loop
 timing belt wrapped around it by pressing the two 6702ZZ bearings into
@@ -319,6 +358,78 @@ of the belt. If needed, loosen the clamp on the pulley and slide it
 up/down on the motor shaft to align with the slider-side pulley, then
 retighten. Pull the motor tight to tension the belt adequately, and,
 while holding it, tighten down the four motor screws.
+
+
+## Semitruck Prime build
+
+### Shaft length calculations
+
+The necessary parameters for determining shaft length and thereby
+mounting height are the length $z$ of Z travel range immediately below
+the motor and the maximum needed XY travel radius $r$ relative to the
+center point just below the motor. A third parameter $k$ is a constant
+determined by the geometry of the U-joint and telescopic joint parts,
+and has a value of 61 mm for the standard parts.
+
+In order to allow for error in mounting position, it is recommended
+that the values $z$ and $r$ be padded by a few millimeters. However,
+the location of the motor-end U-joint arm on the motor shaft allows
+for some degree of adjustment, and motor shims may also be used if
+needed.
+
+In terms of these parameters, the shaft length $h$ measured between
+U-joint centers is given by the formula:
+
+$h = \frac{2k + z + \sqrt{4z^2 + 3r^2 + k^2 + 4kz}}{3}$
+
+The length of the fully-extended shaft, measured between U-joint
+centers, is then $2h-k$.
+
+The inner carbon fiber square tube needs to be cut to a length of
+$h-33$ mm.
+
+The outer carbon fiber square tube needs to be cut to a length of
+$h-52$ mm.
+
+### Plaement/mounting of motor
+
+The motor needs to be mounted such that, with the toolhead at maximum
+Z just below the motor, the shaft is at minimum length. This means the
+motor-side U-joint center should be exactly $h$ mm above the
+extruder-side U-joint center.
+
+There is presently no standardized mounting setup for the Semitruck
+Prime motor.
+
+### Telescoping shaft assembly
+
+The telescopic coupling consists of a 4-part printed insert holding 4
+603ZZ bearings and a printed outer housing. Assemble the insert in a
+cross shape by pressing two 603ZZ bearings onto the pegs of one insert
+piece, then pressing a second insert piece's pegs into two of the
+bearings already on the first. Repeat to assemble the second half of
+the insert, then press the two halves together, and press the insert
+into the housing.
+
+Onto one end of the smaller carbon fiber tube, press fit the printed
+stabilizer and verify that it fits into the larger carbon fiber tube
+without any significant friction. If it does not, shave the outside of
+the stablizer down until it does.
+
+Push the end of the smaller tube without the stabilizer on it through
+the telescopic coupling from the side with the square 10 mm socket.
+The bearings should roll on it as you push it through. Press fit a
+printed U-joint arm onto the exposed end of the tube so that it cannot
+inadvertently slide back out.
+
+Press fit the larger tube into the square 10 mm socket on the
+telescopic coupling, letting the end of the smaller tube with the
+stabilizer go inside the larger tube. Then, press fit the U-joint arm
+with the 10 mm socket on the other end of the larger shaft, ensuring
+that both U-joint arms are in the same orientation (coplanar).
+
+Assemble the U-joint centers and motor/extruder side arms onto the
+ends as in the OG Semitruck instructions.
 
 
 ## Toolhead side assembly
