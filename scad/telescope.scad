@@ -122,49 +122,6 @@ module telescope_housing() difference() {
 	}
 }
 
-module telescope_pulley() difference() {
-	gh = 7;
-	union() {
-		translate([0,0,gh/2+1]) {
-			r = 2*nteeth/PI/2+1-0.6;
-			linear_extrude(height=gh+1,center=true,convexity=3)
-			gt2_pulley_profile(teeth=nteeth);
-			translate([0,0,-gh/2-1]) cylinder(r=r,h=0.6);
-			translate([0,0,gh/2+0.4]) cylinder(r1=r-0.4,r2=r,h=0.4);
-			translate([0,0,gh/2+0.8]) cylinder(r1=r,d2=16.2,h=0.2);
-		}
-
-		translate([0,0,-4])
-		linear_extrude(height=2.2,convexity=3)
-		offset(r=7.5-0.5) offset(r=-7.5)
-		square(28,center=true);
-		translate([0,0,-1.8])
-		cylinder(d1=26,d2=18,h=1.8);
-
-		translate([0,0,gh+2])
-		cylinder(d=16.2,h=2);
-		translate([0,0,gh+3]) {
-			cylinder(d=15,h=4);
-			translate([0,0,4])
-			cylinder(d1=15,d2=14,h=1);
-		}
-	}
-	cylinder(d=9,h=50,center=true);
-	translate([0,0,-4])
-	cylinder(d1=16,d2=9,h=9,center=true);
-	translate([0,0,gh+8])
-	cylinder(d2=18,d1=6,h=9,center=true);
-
-	for (a=[0:90:270]) rotate(a)
-	rotate(45)
-	translate([14,0,-3]) {
-		linear_extrude(height=10,convexity=2)
-		rotate(30)
-		hexagon(5);
-		cylinder(d=2.9,h=100,center=true);
-	}
-}
-
 module telescope_stabilizer()
 difference() {
 	linear_extrude(height=9,convexity=3)
@@ -192,10 +149,6 @@ difference() {
 module telescope_assembly() {
 	telescope_housing();
 
-	*rotate([0,180,0])
-	translate([0,0,4])
-	telescope_pulley();
-
 	telescope_insert();
 
 	for (a=[90:90:270]) rotate(a)
@@ -220,8 +173,6 @@ if (part == "assembly") {
 } else if (part == "insert") {
 	rotate([-90,0,0]) rotate(45)
 	telescope_insert();
-} else if (part == "pulley") {
-	telescope_pulley();
 } else if (part == "stabilizer") {
 	telescope_stabilizer();
 }
