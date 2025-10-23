@@ -391,7 +391,7 @@ $h-33$ mm.
 The outer carbon fiber square tube needs to be cut to a length of
 $h-52$ mm.
 
-### Plaement/mounting of motor
+### Placement/mounting of motor
 
 The motor needs to be mounted such that, with the toolhead at maximum
 Z just below the motor, the shaft is at minimum length. This means the
