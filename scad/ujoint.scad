@@ -126,13 +126,6 @@ module ujoint_arm(s=12,end=false,d_cut=false,shaft_depth=7,shaft_diameter=5.05,s
 					cube([sw+2,sw+2,98],center=true);
 				}
 			}
-
-			for (a=[0:90:270])
-			rotate([0,a,0])
-			translate([0,-12,-10/2])
-			rotate([-35,0,0])
-			translate([0,0,-100/2])
-			cube(100,center=true);
 		} else {
 			translate([0,-7,0])
 			rotate([-90,0,0])
@@ -160,6 +153,13 @@ module ujoint_arm(s=12,end=false,d_cut=false,shaft_depth=7,shaft_diameter=5.05,s
 				hexagon(5.1);
 			}
 		}
+		translate([0,-s/2-(s+6)/2-1+(end?4:0),0])
+		for (a=[0:90:270])
+		rotate([0,a,0])
+		translate([0,-12,-10/2])
+		rotate([-35,0,0])
+		translate([0,0,-100/2])
+		cube(100,center=true);
 	}
 	ujoint_arm_pegs(s);
 }
