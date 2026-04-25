@@ -176,7 +176,7 @@ module hexagon(w) polygon([for (i=[1:6]) w/sqrt(3) * [cos(60*i), sin(60*i)]]);
 rotate(180)
 if (part=="arm")
 ujoint_arm(end=false);
-if (part=="big")
+else if (part=="big")
 ujoint_arm(end=false,sw=10);
 else if (part=="end")
 ujoint_arm(end=true);
