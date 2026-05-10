@@ -124,9 +124,21 @@ module telescope_housing() difference() {
 
 module telescope_stabilizer()
 difference() {
-	linear_extrude(height=9,convexity=3)
-	offset(r=1) offset(r=-1)
-	square(8.2,center=true);
+	union() {
+		hull() {
+			linear_extrude(height=8.5,convexity=3)
+			offset(r=1.5) offset(r=-1.5)
+			square(7,center=true);
+			translate([0,0,0.5])
+			linear_extrude(height=8.5,convexity=3)
+			offset(r=1.5) offset(r=-1.5)
+			square(8,center=true);
+		}
+		for (a=[0:90:270]) rotate(a)
+		translate([8/2,0,2])
+		scale([0.28,0.5,1])
+		sphere(r=1);
+	}
 
 	translate([0,0,0.6])
 	linear_extrude(height=9,convexity=3) union() {
@@ -135,12 +147,14 @@ difference() {
 		translate(2.66*[1,1]) circle(r=0.5);
 	}
 
-	translate([0,0,8]) hull() {
+	translate([0,0,8.5]) hull() {
 		linear_extrude(height=9,convexity=3)
+		offset(r=1) offset(r=-1)
 		square(6,center=true);
-		translate([0,0,3])
+		translate([0,0,0.5])
 		linear_extrude(height=9,convexity=3)
-		square(10,center=true);
+		offset(r=1) offset(r=-1)
+		square(7,center=true);
 	}
 	cylinder(d=4.2,h=10,center=true);
 
