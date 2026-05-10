@@ -145,10 +145,10 @@ module ujoint_arm(s=12,end=false,d_cut=false,shaft_depth=7,shaft_diameter=5.05,s
 			translate([0,-1.5,4.6])
 			rotate([0,90,0]) {
 				cylinder(d=2.9,h=100,center=true);
-				translate([0,0,1.8/2+1.2])
+				translate([0,0,1.8/2+2.0])
 				cylinder(d=5.2,h=100);
 				mirror([0,0,1])
-				translate([0,0,1.8/2+1.2])
+				translate([0,0,1.8/2+2.0])
 				linear_extrude(height=100,convexity=3)
 				hexagon(5.1);
 			}
