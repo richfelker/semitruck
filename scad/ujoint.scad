@@ -142,7 +142,7 @@ module ujoint_arm(s=12,end=false,d_cut=false,shaft_depth=7,shaft_diameter=5.05,s
 			translate([0,-100/2,100/2])
 			cube([1.8,100,100],center=true);
 
-			translate([0,-1.5,2.1+shaft_diameter/2])
+			translate([0,-2.5,2.1+shaft_diameter/2])
 			rotate([0,90,0]) {
 				cylinder(d=2.9,h=100,center=true);
 				translate([0,0,1.8/2+2.0])
@@ -153,7 +153,7 @@ module ujoint_arm(s=12,end=false,d_cut=false,shaft_depth=7,shaft_diameter=5.05,s
 				hexagon(5.1);
 			}
 		}
-		translate([0,-s/2-(s+6)/2-1+(end?5:0),0])
+		translate([0,-s/2-(s+6)/2-1+(end?6.5-shaft_diameter/2:0),0])
 		for (a=[0:90:270])
 		rotate([0,a,0])
 		translate([0,-12,-10/2])
