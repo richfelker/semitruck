@@ -21,6 +21,7 @@ STL_NAMES = \
 	ujoint_end.stl \
 	ujoint_motorend.stl \
 	ujoint_3mmend.stl \
+	ujoint_7mmcollar.stl \
 	ujoint_center.stl \
 	wormwheel-hgxv1.stl \
 	#

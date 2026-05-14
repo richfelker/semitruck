@@ -4,7 +4,7 @@ bod=6;
 bid=3;
 bt=2; // 0.5
 
-part="arm"; // [ "arm", "big", "end", "motorend", "3mmend", "center" ]
+part="arm"; // [ "arm", "big", "end", "motorend", "3mmend", "7mmcollar", "center" ]
 preview=false;
 
 module ujoint_center(s=s) difference() {
@@ -99,7 +99,7 @@ module ujoint_arm_pegs(s=12) {
 	}
 }
 
-module ujoint_arm(s=12,end=false,d_cut=false,shaft_depth=7,shaft_diameter=5.05,sw=6) {
+module ujoint_arm(s=12,end=false,d_cut=false,shaft_depth=7,shaft_diameter=5.05,sw=6,set_holes=false) {
 	difference() {
 		ujoint_arm_outer(s=s,extra=(end||sw>6?2:0));
 		translate([0,-s/2,0])
@@ -152,6 +152,14 @@ module ujoint_arm(s=12,end=false,d_cut=false,shaft_depth=7,shaft_diameter=5.05,s
 				linear_extrude(height=100,convexity=3)
 				hexagon(5.1);
 			}
+			if (set_holes) {
+				for (a=[135,225])
+				hull() for (y=[3.3,4])
+				translate([0,-6+y,0])
+				rotate([0,a,0])
+				cylinder(d=4.5,h=50);
+				
+			}
 		}
 		translate([0,-s/2-(s+6)/2-1+(end?6.5-shaft_diameter/2:0),0])
 		for (a=[0:90:270])
@@ -184,6 +192,8 @@ else if (part=="motorend")
 ujoint_arm(end=true,d_cut=true,shaft_depth=100);
 else if (part=="3mmend")
 ujoint_arm(end=true,shaft_depth=8,shaft_diameter=3);
+else if (part=="7mmcollar")
+ujoint_arm(end=true,shaft_depth=8,shaft_diameter=7.1,set_holes=true);
 else if (part=="center")
 ujoint_center();
 
