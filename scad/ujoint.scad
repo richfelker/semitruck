@@ -200,10 +200,10 @@ ujoint_center();
 
 if (preview)
 %
-rotate([55,0,0])
+rotate([55,0,180])
 {
 rotate([-90,0,0])
-center_block();
+ujoint_center();
 rotate([0,90,180]) ujoint_arm();
 }
 
